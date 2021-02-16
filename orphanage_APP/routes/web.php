@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DonateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('donationform/', function () {
     return view('donationform');
@@ -39,6 +39,10 @@ Route::get('/test', function () {
 
 
 Auth::routes();
+Route::get('/', 'DonorController@index')->name('home');
+Route::get('/donate', 'DonorController@donateForm')->name('Make Donations');
+Route::get('/donaterequired/{items}', 'DonorController@donateRequiredForm')->name('Donate Required Item');
+Route::get('/requiredItems', 'ItemsRequiredController@index')->name('Items Required');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/payments', 'PaymentController@index')->name('payment');
@@ -56,5 +60,9 @@ Route::get('/donations/edit/{id}', 'Donor123Controller@update')->name('edit-dona
 Route::get('/itemsrequested/create', 'ItemsrequestedController@create')->name('create-itemsrequested');
 Route::get('/itemsrequested/edit/{id}', 'ItemsrequestedController@update')->name('edit-itemsrequested');
 
-Route::get('/donations', 'DonationController@index')->name('donations');
+Route::get('form','DonateController@index');
+Route::post('/submit','DonateController@store');
 
+Route::get('/view_donations', 'DonateController@retrieve');
+
+ 
